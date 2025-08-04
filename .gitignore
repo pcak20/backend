@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+*.pot
+*.pyc
+*.pyo
+
+# Django
+*.db
+*.sqlite3
+*.pyc
+.env
+.env.*
+*.secret
+media/
+staticfiles/
+local_settings.py
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store
+
+# Git
+*.swp
+.idea/
+*.bak
+
+# Node (if using npm for frontend)
+node_modules/
+
+# Migration files (optional if you want a cleaner history)
+**/migrations/*.py
+!**/migrations/__init__.py
