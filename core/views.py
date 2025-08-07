@@ -1,3 +1,28 @@
-from django.shortcuts import render
+from rest_framework import generics, permissions
+from .models.business import Business, BusinessType
+from .serializers.business import BusinessSerializer, BusinessTypeSerializer
 
-# Create your views here.
+
+class BusinessTypeListView(generics.ListAPIView):
+    serializer_class = BusinessTypeSerializer
+    queryset = BusinessType.objects.all()
+    permission_classes = [permissions.AllowAny]
+
+
+class BusinessListCreateView(generics.ListCreateAPIView):
+    serializer_class = BusinessSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Business.objects.filter(owner=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
+class BusinessDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = BusinessSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Business.objects.filter(owner=self.request.user)
