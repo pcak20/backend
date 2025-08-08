@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from core.models.business import Business, BusinessType
+from core.serializers.site import SiteSerializer
 
 
 class BusinessTypeSerializer(serializers.ModelSerializer):
@@ -24,12 +25,13 @@ class BusinessSerializer(serializers.ModelSerializer):
         write_only=True
     )
     logo = serializers.ImageField(required=False)  # ✅ Now allows upload
+    sites = SiteSerializer(many=True, read_only=True)
 
     class Meta:
         model = Business
         fields = [
             'id', 'name', 'business_type', 'business_type_id',
-            'logo', 'website', 'phone', 'address', 'created_at'
+            'logo', 'website', 'phone', 'address', 'created_at', 'sites'
         ]
 
     def to_representation(self, instance):

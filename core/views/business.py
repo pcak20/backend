@@ -1,6 +1,6 @@
 from rest_framework import generics, permissions
-from .models.business import Business, BusinessType
-from .serializers.business import BusinessSerializer, BusinessTypeSerializer
+from core.models.business import Business, BusinessType
+from core.serializers.business import BusinessSerializer, BusinessTypeSerializer
 
 
 class BusinessTypeListView(generics.ListAPIView):

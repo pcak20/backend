@@ -2,6 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class BusinessStatus(models.TextChoices):
+    ACTIVE = 'active', 'Active'
+    PENDING_DELETION = 'pending_deletion', 'Pending Deletion'
+    SUSPENDED = 'suspended', 'Suspended'
+
+
 class BusinessType(models.Model):
     code = models.SlugField(max_length=50, unique=True)  # e.g., "restaurant"
     name = models.CharField(max_length=100)              # e.g., "Restaurant"
@@ -19,6 +25,12 @@ class Business(models.Model):
     name = models.CharField(max_length=255)
     business_type = models.ForeignKey(
         BusinessType, on_delete=models.CASCADE, related_name='businesses')
+
+    status = models.CharField(
+        max_length=50,
+        choices=BusinessStatus.choices,
+        default=BusinessStatus.ACTIVE
+    )
 
     logo = models.ImageField(
         upload_to='business_logos/', blank=True, null=True)
